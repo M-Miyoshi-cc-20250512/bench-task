@@ -14,27 +14,20 @@ class Product extends Model
 
     protected $fillable = [
         'name',
-        'price',
-        'image_path',
-        'category_id',
         'description',
+        'category',       // 文字列でカテゴリを保存する場合
+        'price',
+        'stock_quantity',
     ];
 
-    protected $appends = [
-        'category',
-        'taxed_price'
+    protected $casts = [
+        'price' => 'integer',
+        'stock_quantity' => 'integer',
     ];
 
-    public function category(){
-        return $this->belongsTo('App\Models\Category');
-    }
-
-    public function getCategoryAttribute(){
-        return Category::find($this->category_id)->category;
-    }
-
-    public function getTaxedPriceAttribute(){
-        return $this->price * 1.10;
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
     }
     
 }
