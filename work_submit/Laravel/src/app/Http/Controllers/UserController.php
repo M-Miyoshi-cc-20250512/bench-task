@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User; 
-use Illuminate\Support\Facades\Hash; 
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -53,7 +53,7 @@ class UserController extends Controller
         return view('user.confirm', compact('data'));
     }
     //登録完了
-    public function submit(Request $request)
+    public function complete(Request $request)
     {
         // DBに保存
         $user = User::create([
@@ -62,7 +62,7 @@ class UserController extends Controller
             'password_hash' => Hash::make($request->password),
         ]);
 
-        return view('user.submit'); // 完了ページへ
+        return view('user.complete'); // 完了ページへ
     }
 
     // ログインフォーム表示
@@ -80,7 +80,7 @@ class UserController extends Controller
             return redirect('/profile');
         }
 
-        return back()->withErrors(['email' => 'ログイン情報が正しくありません']);
+        return back()->withErrors(['email' => 'this does not match our records']);
     }
 
     // プロフィールページ表示
@@ -90,18 +90,38 @@ class UserController extends Controller
         return view('user.profile', compact('user'));
     }
 
+    // 編集画面
+    public function editProfile()
+    {
+        $user = Auth::user(); // ログインユーザー情報
+        return view('user.edit_profile', compact('user'));
+    }
+
     // プロフィール更新
     public function updateProfile(Request $request)
     {
         $user = Auth::user();
+
+        // バリデーション
+        $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email',
+            'address' => 'nullable|max:255',
+            'phone' => 'nullable|max:20',
+        ]);
+
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->address = $request->address;
+        $user->phone = $request->phone;
+
         if ($request->password) {
             $user->password_hash = Hash::make($request->password);
         }
+
         $user->save();
 
-        return redirect('/profile')->with('message', 'プロフィールを更新しました');
+        return redirect()->route('profile')->with('message', 'your profile is updated');
     }
 
     // ログアウト
