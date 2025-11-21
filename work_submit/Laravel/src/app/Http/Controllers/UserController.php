@@ -56,7 +56,7 @@ class UserController extends Controller
     public function complete(Request $request)
     {
         // DBに保存
-        $user = User::create([
+        $user = User::create([ 
             'name' => $request->name,
             'email' => $request->email,
             'password_hash' => Hash::make($request->password),
@@ -94,7 +94,7 @@ class UserController extends Controller
     public function editProfile()
     {
         $user = Auth::user(); // ログインユーザー情報
-        return view('user.edit_profile', compact('user'));
+        return view('user.edit-profile', compact('user'));
     }
 
     // プロフィール更新
