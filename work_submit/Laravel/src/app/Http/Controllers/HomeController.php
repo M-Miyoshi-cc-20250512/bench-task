@@ -30,4 +30,28 @@ class HomeController extends Controller
 
         return view('home', compact('newItems', 'saleItems', 'rankingItems'));
     }
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+
+        // ダミーデータ
+        $allItems = [
+            ['name' => 'New productA', 'price' => 2000, 'image' => '/dummy/a.jpg'],
+            ['name' => 'Sale productB', 'price' => 980, 'image' => '/dummy/s2.jpg'],
+        ];
+
+        // 絞り込み
+        $results = [];
+        foreach ($allItems as $item) {
+            if (stripos($item['name'], $keyword) !== false) {
+                $results[] = $item;
+            }
+        }
+
+        return view('home', [
+            'newItems' => $results,
+            'saleItems' => [],
+            'rankingItems' => [],
+        ]);
+    }
 }
