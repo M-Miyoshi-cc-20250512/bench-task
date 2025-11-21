@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,3 +49,7 @@ Route::post('/profile/update', [UserController::class, 'updateProfile'])
 
 // ログアウト
 Route::get('/logout', [UserController::class, 'logout']); 
+
+//Home
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/search', [HomeController::class, 'search'])->name('search');
