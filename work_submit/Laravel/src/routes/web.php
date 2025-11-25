@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,3 +54,7 @@ Route::get('/logout', [UserController::class, 'logout']);
 //Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/search', [HomeController::class, 'search'])->name('search');
+// カテゴリ別（トレンド商品）
+Route::get('/category/{category}/trending', [HomeController::class, 'categoryTrending'])->name('category.trending');
+//カテゴリ
+Route::get('/products/{category}', [ProductController::class, 'index'])->name('products.index');
