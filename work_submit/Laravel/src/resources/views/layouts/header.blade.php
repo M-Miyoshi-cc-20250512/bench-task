@@ -4,9 +4,11 @@
     <nav class="category-menu">
         <ul>
             <li class="menu-item">
-                MEN
+                <a class="category-title" href="/products/men">MEN</a>
                 <ul class="sub-menu">
-                    <li>Trending</li>
+                    <li>
+                        <a class="category-title" href="/category/men/trending">Trending</a>
+                    </li>
                     <li>New Arrival</li>
                     <li>Tops</li>
                     <li>Bottoms</li>
@@ -14,19 +16,24 @@
                 </ul>
             </li>
             <li class="menu-item">
-                WOMEN
+               <a class="category-title" href="/products/women">WOMEN</a>
                 <ul class="sub-menu">
-                    <li>Trending</li>
+                    <li>
+                        <a class="category-title" href="/category/women/trending">Trending</a>
+                    </li>
                     <li>New Arrival</li>
                     <li>Tops</li>
                     <li>Bottoms</li>
                     <li>Shoes</li>
+                    <li>Bags</li>
                 </ul>
             </li>
             <li class="menu-item">
-                KIDS
+                <a class="category-title" href="/products/kids">KIDS</a>
                 <ul class="sub-menu">
-                    <li>Trending</li>
+                    <li>
+                        <a class="category-title" href="/category/kids/trending">Trending</a>
+                    </li>
                     <li>New Arrival</li>
                     <li>Tops</li>
                     <li>Bottoms</li>
