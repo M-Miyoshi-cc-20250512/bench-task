@@ -14,12 +14,15 @@ class CreateProductsTable extends Migration
             $table->string('description', 255); //説明
             $table->string('category', 255); //カテゴリー
             $table->unsignedBigInteger('price'); //価格
+            $table->string('size', 50)->nullable();       // サイズ
+            $table->string('color', 50)->nullable();      // 色
+            $table->string('image', 255)->nullable();     // 画像パス
             $table->unsignedBigInteger('stock_quantity'); //在庫数
             $table->timestamps(); //作成・更新日時
         });
     }
     public function down()
     {
-        Schema::dropIfExists('products'); 
+        Schema::dropIfExists('products');
     }
 }

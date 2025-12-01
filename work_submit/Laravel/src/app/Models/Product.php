@@ -10,13 +10,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
     protected $fillable = [
         'name',
         'description',
-        'category',       // 文字列でカテゴリを保存する場合
+        'category',       
         'price',
+        'size',        
+        'color',       
+        'image',
         'stock_quantity',
     ];
 
@@ -29,5 +31,4 @@ class Product extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
-    
 }
