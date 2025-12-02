@@ -17,13 +17,15 @@ use App\Http\Controllers\Admin\ProductController as AdminProductController;
 |
 */
 
-// 管理画面
+// 商品管理画面
 Route::prefix('admin')->name('admin.')->group(function () {
      // 管理画面トップ
      Route::get('/', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('index');
 
      // 商品リソース（管理画面用）
      Route::resource('products', AdminProductController::class);
+     // ユーザー管理
+     Route::get('users', [App\Http\Controllers\Admin\AdminUserController::class, 'index'])->name('users.index');
 });
 
 // ユーザー登録
