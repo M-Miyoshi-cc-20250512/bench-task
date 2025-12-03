@@ -6,9 +6,11 @@
     <div class="slider-track">
         @foreach($trendingItems as $item)
         <div class="slide">
-            <img src="{{ $item['image'] }}" alt="{{ $item['name'] }}">
-            <p class=products-name>{{ $item['name'] }}</p>
-            <p>￥{{ $item['price'] }}</p>
+            <a href="{{ route('products.show', ['category' => $item['category'], 'id' => $item['id']]) }}">
+                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}">
+                <h3 class="products-name">{{ $item->name }}</h3>
+                <p>￥{{ $item->price }}</p>
+            </a>
         </div>
         @endforeach
     </div>

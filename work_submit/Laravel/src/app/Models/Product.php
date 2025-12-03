@@ -20,6 +20,7 @@ class Product extends Model
         'color',       
         'image',
         'stock_quantity',
+        'is_trend',
     ];
 
     protected $casts = [

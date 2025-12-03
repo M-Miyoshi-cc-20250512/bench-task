@@ -18,6 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('color', 50)->nullable();      // 色
             $table->string('image', 255)->nullable();     // 画像パス
             $table->unsignedBigInteger('stock_quantity'); //在庫数
+            $table->boolean('is_trend')->default(0); //トレンドがどうか
             $table->timestamps(); //作成・更新日時
         });
     }
