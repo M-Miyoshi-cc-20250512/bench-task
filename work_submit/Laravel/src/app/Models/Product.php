@@ -10,31 +10,26 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
     protected $fillable = [
         'name',
-        'price',
-        'image_path',
-        'category_id',
         'description',
+        'category',       
+        'price',
+        'size',        
+        'color',       
+        'image',
+        'stock_quantity',
+        'is_trend',
     ];
 
-    protected $appends = [
-        'category',
-        'taxed_price'
+    protected $casts = [
+        'price' => 'integer',
+        'stock_quantity' => 'integer',
     ];
 
-    public function category(){
-        return $this->belongsTo('App\Models\Category');
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
     }
-
-    public function getCategoryAttribute(){
-        return Category::find($this->category_id)->category;
-    }
-
-    public function getTaxedPriceAttribute(){
-        return $this->price * 1.10;
-    }
-    
 }
