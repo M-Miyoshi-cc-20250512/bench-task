@@ -3,8 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\AdminUserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +29,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
      // 商品リソース（管理画面用）
      Route::resource('products', AdminProductController::class);
      // ユーザー管理
-     Route::get('users', [App\Http\Controllers\Admin\AdminUserController::class, 'index'])->name('users.index');
+     Route::resource('users', \App\Http\Controllers\Admin\AdminUserController::class);
 });
 
 // ユーザー登録
@@ -54,7 +58,11 @@ Route::post('/profile/update', [UserController::class, 'updateProfile'])
      ->middleware('auth');
 
 // ログアウト
-Route::get('/logout', [UserController::class, 'logout']);
+Route::get('/logout-confirm', function () {
+     return view('user.logout');
+})->name('logout.confirm');
+
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 //Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -65,3 +73,15 @@ Route::get('/category/{category}/trending', [HomeController::class, 'categoryTre
 Route::get('/products/{category}', [ProductController::class, 'index'])->name('products.index');
 //商品詳細ページ
 Route::get('/products/{category}/{id}', [ProductController::class, 'showProduct'])->name('products.show');
+// カートadd
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+// カートindex
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+// カートremove
+Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+// カート数量変更プルダウン
+Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+// 購入画面
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+// チェックアウト
+Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout.checkout');

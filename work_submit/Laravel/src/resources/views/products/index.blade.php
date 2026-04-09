@@ -16,13 +16,12 @@
 <div class="product-list">
     @foreach($items as $item)
     <div class="product-card">
-        <a href="{{ route('products.show', ['category' => $item['category'], 'id' => $item['id']]) }}">
-            <img src="{{ $item['image'] }}" alt="{{ $item['name'] }}" class="product-img">
-            <h3 class="product-title">{{ $item['name'] }}</h3>
+        <a href="{{ route('products.show', ['category' => $item->category, 'id' => $item->id]) }}">
+            <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}" class="product-img">
+            <h3 class="product-title">{{ $item->name }}</h3>
         </a>
-        <p>Price: ¥{{ $item['price'] }}</p>
-        <p>Stock: {{ $item['stock'] }}</p>
-        <button>Add to Cart</button>
+        <p>Price: ¥{{ $item->price }}</p>
+        <p>Stock: {{ $item->stock_quantity }}</p>
     </div>
     @endforeach
 </div>

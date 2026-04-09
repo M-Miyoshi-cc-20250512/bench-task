@@ -51,7 +51,7 @@
             <button type="submit">Search</button>
         </form>
         <span>Likes</span>
-        <span>Shopping bags</span>
+        <a href="{{ route('cart.index') }}">🛒</a>
     </div>
 
 </header>

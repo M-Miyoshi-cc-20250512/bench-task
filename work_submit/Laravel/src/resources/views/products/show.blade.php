@@ -4,17 +4,16 @@
 <div class="product-detail">
     <!-- 画像 -->
     <div class="product-images">
-        <img src="{{ $item['image'] }}" alt="{{ $item['name'] }}" class="product-img">
+        <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}" class="product-img">
     </div>
 
     <!-- 商品情報 -->
     <div class="product-info">
-        <h1 >{{ $item['name'] }}</h1>
-        <p>Price: ¥{{ $item['price'] }}</p>
-        <p>Stock: {{ $item['stock'] }}</p>
-        <p>Description: This is a dummy description for {{ $item['name'] }}.</p>
+        <h1>{{ $item->name }}</h1>
+        <p>Price: ¥{{ $item->price }}</p>
+        <p>Stock: {{ $item->stock_quantity }}</p>
+        <p>Description: This is a dummy description for {{ $item->name }}.</p>
 
-        <!-- オプション選択 -->
         <div class="product-options">
             <label>Size:</label>
             <select>
@@ -31,7 +30,14 @@
             </select>
         </div>
 
-        <button>Add to Cart</button>
+        <form action="{{ route('cart.add') }}" method="POST">
+            @csrf
+
+            <input type="hidden" name="product_id" value="{{ $item->id }}">
+
+            <button type="submit">Add to Cart</button>
+        </form>
+        <button onclick="history.back()">back</button>
     </div>
 </div>
 @endsection
