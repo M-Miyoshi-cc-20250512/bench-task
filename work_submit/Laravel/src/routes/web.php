@@ -85,3 +85,5 @@ Route::post('/cart/update', [CartController::class, 'update'])->name('cart.updat
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 // チェックアウト
 Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout.checkout');
+Route::get('/success', [CheckoutController::class, 'success'])->name('checkout.success');
+Route::get('/cancel', [CheckoutController::class, 'cancel'])->name('checkout.cancel');
