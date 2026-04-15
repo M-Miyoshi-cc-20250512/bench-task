@@ -22,8 +22,12 @@ class HomeController extends Controller
             ['id' => 4, 'name' => 'Sale productA', 'price' => 1500, 'image' => '/dummy/s1.jpg'],
             ['id' => 5, 'name' => 'Sale productB', 'price' => 980,  'image' => '/dummy/s2.jpg'],
         ];
+        $rankingItems = [
+            ['id' => 1, 'name' => 'Ranking A', 'price' => 2500, 'image' => '/dummy/r1.jpg'],
+            ['id' => 2, 'name' => 'Ranking B', 'price' => 3000, 'image' => '/dummy/r2.jpg'],
+        ];
 
-        return view('home', compact('newItems', 'saleItems'));
+        return view('home', compact('newItems', 'saleItems', 'rankingItems'));
     }
 
     public function search(Request $request)
