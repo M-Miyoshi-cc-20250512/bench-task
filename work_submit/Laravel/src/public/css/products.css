@@ -1,0 +1,35 @@
+.product-img {
+    width: 400px;       
+    height: 400px;      
+    object-fit: cover;  
+    border-radius: 8px; 
+}
+
+.product-list {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;    
+    gap: 20px;            
+}
+
+.product-title{
+    display: flex;
+    justify-content: center;
+}
+
+.product-card a{
+    text-decoration: none;
+    color:black;
+}
+
+.product-detail{
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-info{
+    left: auto;
+}
