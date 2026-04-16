@@ -7,6 +7,7 @@ use Stripe\Stripe;
 use Stripe\Checkout\Session;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderMail;
+use App\Models\Order;
 
 class CheckoutController extends Controller
 {
@@ -50,18 +51,33 @@ class CheckoutController extends Controller
             'payment_method_types' => ['card'],
             'line_items' => $line_items,
             'mode' => 'payment',
-            'success_url' => url('/success'),
+            'success_url' => url('/success?session_id={CHECKOUT_SESSION_ID}'),
             'cancel_url' => url('/cancel'),
         ]);
 
         return redirect($session->url);
     }
-    public function success()
+
+    public function success(Request $request)
     {
-        // メール送信
+
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+        $sessionId = $request->get('session_id');
+
+        $session = Session::retrieve($sessionId);
+
+        $paymentIntent = $session->payment_intent;
+
+        Order::create([
+            'user_id' => 1,
+            'total_price' => 0,
+            'status' => 0,
+            'payment_intent' => $paymentIntent,
+        ]);
+
         Mail::to('test@example.com')->send(new OrderMail());
 
-        // カート削除
         session()->forget('cart');
 
         return view('checkout.success');
