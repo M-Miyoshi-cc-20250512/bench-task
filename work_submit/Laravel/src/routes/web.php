@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\AdminUserController;
 
@@ -87,3 +88,5 @@ Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.in
 Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout.checkout');
 Route::get('/success', [CheckoutController::class, 'success'])->name('checkout.success');
 Route::get('/cancel', [CheckoutController::class, 'cancel'])->name('checkout.cancel');
+
+Route::post('/stripe/webhook', [WebhookController::class, 'handle']);
