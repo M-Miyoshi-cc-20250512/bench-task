@@ -103,40 +103,15 @@ class ProductController extends Controller
     $product = Product::findOrFail($id);
     $product->update($request->all());
 
-    Stripe::setApiKey(config('services.stripe.secret'));
-    StripeProduct::update(
-      $product->stripe_product_id,
-      ['name' => $request->name]
-    );
-    $stripePrice = Price::create([
-      'unit_amount' => $request->price,
-      'currency' => 'jpy',
-      'product' => $product->stripe_product_id,
-    ]);
-    $product->stripe_price_id = $stripePrice->id;
-    $product->save();
-
     return redirect()->route('admin.products.index')->with('success', '商品を更新しました');
   }
 
   // 商品削除
   public function destroy($id)
   {
-    $product = Product::findOrFail($id);
+    $product = Product::findOrFail($id); // IDで商品取得
+    $product->delete(); // 削除（論理削除なら deleted_at がセットされる）
 
-    // Stripeキー設定
-    Stripe::setApiKey(config('services.stripe.secret'));
-
-    // Stripe側を無効化
-    \Stripe\Product::update(
-      $product->stripe_product_id,
-      ['active' => false]
-    );
-
-    // DB削除
-    $product->delete();
-
-    return redirect()->route('admin.products.index')
-      ->with('success', '商品を削除しました');
+    return redirect()->route('admin.products.index')->with('success', '商品を削除しました');
   }
 }
